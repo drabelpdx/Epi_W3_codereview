@@ -37,13 +37,26 @@ class Client
      @name = attributes.fetch(:name, @name)
      DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{@id};")
 
-    #  attributes.fetch(:stylist_ids, []).each() do |stylist_id|
-    #  DB.exec("INSERT INTO clients_stylists (client_id, stylist_id) VALUES (#{self.id}, #{stylist_id()});")
-    #  end
+     attributes.fetch(:stylist_ids, []).each() do |stylist_id|
+     DB.exec("INSERT INTO clients_stylists (client_id, stylist_id) VALUES (#{self.id()}, #{stylist_id});")
+     end
    end
 
    define_method(:delete) do
+    DB.exec("DELETE FROM clients_stylists WHERE client_id = #{self.id()};")
     DB.exec("DELETE FROM clients WHERE id = #{self.id()};")
    end
+
+   define_method(:stylists) do
+    client_stylists = []
+    results = DB.exec("SELECT stylist_id FROM clients_stylists WHERE client_id = #{self.id()};")
+    results.each() do |result|
+      stylist_id = result.fetch("stylist_id").to_i()
+      stylist = DB.exec("SELECT * FROM stylists WHERE id = #{stylist_id};")
+      name = stylist.first().fetch("name")
+      client_stylists.push(Stylist.new({:name => name, :id => stylist_id}))
+    end
+    client_stylists
+  end
 
 end
