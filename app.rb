@@ -23,3 +23,16 @@ post("/stylists") do
   @stylists = Stylist.all()
   erb(:stylist)
 end
+
+get("/clients") do
+  @clients = Client.all()
+  erb(:clients)
+end
+
+post("/clients") do
+  name = params.fetch("name")
+  client = Client.new({:name => name, :id => nil})
+  client.save()
+  @clients = Client.all()
+  erb(:client)
+end

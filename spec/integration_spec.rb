@@ -11,3 +11,12 @@ describe('the add Stylist path', {:type => :feature}) do
     expect(page).to have_content('Marc')
   end
 end
+
+describe('the add Client path', {:type => :feature}) do
+  it('adds a client and returns a list of all clients') do
+    visit('/clients')
+    fill_in('name', :with => 'Sally')
+    click_button('Add Client')
+    expect(page).to have_content('Sally')
+  end
+end

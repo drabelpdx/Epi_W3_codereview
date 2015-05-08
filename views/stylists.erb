@@ -1,0 +1,28 @@
+<h3> Here are all the Stylists at KiKi's</h3>
+
+
+ <% if @stylists.any?() %>
+   <p>Stylists</p>
+     <ul>
+       <% @stylists.each do |stylist| %>
+         <li><a href="/stylists/<%= stylist.id() %>"><%= stylist.name() %></a></li>
+       <% end %>
+      </ul>
+
+      <% else %>
+      <p>There are no stylists added yet.</p>
+      <% end %>
+
+      <p>Add a Stylist to the database</p>
+
+      <form action='/stylists' method='post'>
+        <label for='name'> Stylist's name:</label>
+        <input id='name' name='name' type='text'>
+
+        <button type='submit'>Add Stylist</button>
+      </form>
+
+      <div class ="container">
+        <a href="/">Return to Main Page</a>
+        <a href="/clients">View the Client's page</a>
+      </div>
