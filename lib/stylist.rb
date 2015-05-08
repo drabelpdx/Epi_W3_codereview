@@ -47,7 +47,7 @@ class Stylist
    end
 
    define_method(:clients) do
-    stylist_clienss = []
+    stylist_clients = []
     results = DB.exec("SELECT client_id FROM clients_stylists WHERE stylist_id = #{self.id()};")
     results.each() do |result|
       client_id = result.fetch("client_id").to_i()

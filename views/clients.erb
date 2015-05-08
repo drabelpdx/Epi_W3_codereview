@@ -4,7 +4,7 @@
  <% if @clients.any?() %>
    <p>Clients</p>
      <ul>
-       <% @clients.each do |clients| %>
+       <% @clients.each do |client| %>
          <li><a href="/clients/<%= client.id() %>"><%= client.name() %></a></li>
        <% end %>
       </ul>
