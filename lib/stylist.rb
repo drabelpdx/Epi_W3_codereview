@@ -33,4 +33,13 @@ class Stylist
      self.name().==(another_stylist.name()).&(self.id().==(another_stylist.id()))
    end
 
+   define_method(:update) do |attributes|
+     @name = attributes.fetch(:name, @name)
+     DB.exec("UPDATE stylists SET name = '#{@name}' WHERE id = #{@id};")
+
+    #  attributes.fetch(:client_ids, []).each() do |client_id|
+    #  DB.exec("INSERT INTO clients_stylists (client_id, stylist_id) VALUES (#{client_id}, #{self.id()});")
+    #  end
+   end
+
 end
