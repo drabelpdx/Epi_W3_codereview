@@ -23,4 +23,15 @@ class Client
      clients
    end
 
+   define_singleton_method(:find) do |id|
+     result = DB.exec("SELECT * FROM clients WHERE id = #{id};")
+     name = result.first().fetch('name')
+     Client.new({:name => name, :id => id})
+   end
+
+   define_method(:==) do |another_client|
+     self.name().==(another_client.name()).&(self.id().==(another_client.id()))
+   end
+
+
 end
