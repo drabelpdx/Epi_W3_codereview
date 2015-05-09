@@ -8,9 +8,10 @@
   <button type="submit">Edit Name</button>
 </form>
 
-<br><br>
+<br>
 
 <% if @client.stylists().any?() %>
+<h3><%= @client.name() %>'s stylist is:</h3>
 
   <ul>
     <% @client.stylists().each() do |stylist| %>
@@ -21,7 +22,7 @@
 <% else %>
   <p><%= @client.name() %> is not assigned to any Stylist yet!</p>
 <% end %>
-
+<br><br>
 <h3>Choose a Stylist for <%= @client.name() %>:</h3>
 
  <form action="/clients/stylist/<%= @client.id %>" method="post">
@@ -33,7 +34,6 @@
            <option value="<%= stylist.id()%>"> <%= stylist.name() %> </option>
          <% end %>
        </select>
-
    <button type="submit">Assign Stylist</button>
  </form>
 <br><br>
